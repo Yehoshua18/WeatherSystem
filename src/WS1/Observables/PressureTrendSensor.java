@@ -1,9 +1,18 @@
 package WS1.Observables;
 
+enum Trend{
+    Rising,
+    Declining,
+    Stable
+}
+
 public class PressureTrendSensor {
     private int a;
     private int b;
     private int c;
+    private Trend pressureState;
+    private Trend lastState;
+
 
     public void update(int newReading){
         a = b;
@@ -11,17 +20,17 @@ public class PressureTrendSensor {
         c = newReading;
     }
 
-    public String getTrend(){
-        String res;
+    public Trend calc(){
+        Trend res;
 
         if (a<b && b<c)
-            res = "Rising";
+            res = Trend.Rising;
 
         else if(a>b && b>c)
-            res = "Declining";
+            res = Trend.Declining;
 
         else
-            res = "Stable";
+            res = Trend.Stable;
 
         return res;
     }
