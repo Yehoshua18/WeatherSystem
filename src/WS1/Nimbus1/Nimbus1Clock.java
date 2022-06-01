@@ -2,7 +2,7 @@ package WS1.Nimbus1;
 
 import WS1.Observables.AlarmClock;
 
-public class Nimbus1Clock extends AlarmClock
+public class Nimbus1Clock extends AlarmClock // hksjadhfj
 {
     protected Nimbus1Clock()
     {
