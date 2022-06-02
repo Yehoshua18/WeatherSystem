@@ -8,4 +8,8 @@ public class LogPressObserver implements Observer<Integer>{
     }
 
 
+    @Override
+    public void update(Integer data) {
+        itsLog.displayPressure(data);
+    }
 }

@@ -6,22 +6,20 @@ public class AlarmClockRecord {
     private int interval;
     private int remainingTime;
     AlarmListener itsAlarmListener;
+    public AlarmClockRecord(int interval,AlarmListener itsAlarmListener) {
+        this.interval = interval;
+        this.itsAlarmListener=itsAlarmListener;
+    }
+
 
     public AlarmListener getItsAlarmListener() {
         return itsAlarmListener;
     }
-
-   
-    
-
    
     public int getInterval() {
         return interval;
     }
 
-    public AlarmClockRecord(int interval) {
-        this.interval = interval;
-    }
 
     public int getRemainingTime() {
         return remainingTime;

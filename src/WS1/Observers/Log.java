@@ -1,5 +1,4 @@
 package WS1.Observers;
-import WS1.Observables.T
 import WS1.Observables.Trend;
 
 public class Log {
@@ -10,4 +9,6 @@ public class Log {
 
     }
 
+    public Log() {
+    }
 }

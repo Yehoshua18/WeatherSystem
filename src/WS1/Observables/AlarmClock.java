@@ -29,7 +29,7 @@ public class AlarmClock
     }
 
     public void register(int interval, AlarmListener pal) {
-        //TODO: fix
+        itsAlarmClockRecords.add(new AlarmClockRecord(interval,pal));
     }
 }
 
