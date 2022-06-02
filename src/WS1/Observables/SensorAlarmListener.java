@@ -1,4 +1,16 @@
 package WS1.Observables;
 
-public class SensorAlarmListener {
+import WS1.Nimbus1.Nimbus1TemperatureSensor;
+
+public class SensorAlarmListener implements AlarmListener {
+    Sensor itsTemperatureSensor;
+
+    public SensorAlarmListener(Sensor itsTemperatureSensor) {
+        this.itsTemperatureSensor = itsTemperatureSensor;
+    }
+
+    @Override
+    public void wakeup() {
+        itsTemperatureSensor.check();
+    }
 }

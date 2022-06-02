@@ -1,32 +1,29 @@
 package WS1.Observables;
 
-enum Trend{
-    Rising,
-    Declining,
-    Stable
-}
+import WS1.Observers.Observer;
 
-public class PressureTrendSensor {
+import java.util.ArrayList;
+
+public class PressureTrendSensor extends Observable implements Observer<Trend> {
     private int a;
     private int b;
     private int c;
     private Trend pressureState;
     private Trend lastState;
 
+//    public PressureTrendSensor(ArrayList<Observer> itsObservers) {
+//        super(itsObservers);
+//    }
 
-    public void update(int newReading){
-        a = b;
-        b = c;
-        c = newReading;
-    }
 
-    public Trend calc(){
+
+    public Trend calc() {
         Trend res;
 
-        if (a<b && b<c)
+        if (a < b && b < c)
             res = Trend.Rising;
 
-        else if(a>b && b>c)
+        else if (a > b && b > c)
             res = Trend.Declining;
 
         else
@@ -35,4 +32,19 @@ public class PressureTrendSensor {
         return res;
     }
 
+
+    @Override
+    public void update(Trend newReading) {
+//        a = b;
+//        b = c;
+//        c = newReading;
+    }
+
+    public void check() {
+        Trend temp = calc();
+        if (lastState != temp) {
+            lastState = temp;
+            notifyObservers(lastState);
+        }
+    }
 }

@@ -1,5 +1,5 @@
 package WS1.Observers;
 
-public interface Observer {
-    void update(int data);
+public interface Observer<T> {
+    void update(T data);
 }

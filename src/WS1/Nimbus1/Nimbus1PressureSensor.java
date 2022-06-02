@@ -15,4 +15,6 @@ public class Nimbus1PressureSensor extends Sensor {
     {
         return (int) (rnd.nextInt(1050-950) + 950);
     }
+
+
 }
