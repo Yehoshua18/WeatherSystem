@@ -1,5 +1,7 @@
 package WS1.Observables;
 
+import WS1.Nimbus1.Nimbus1PressureSensor;
+
 public abstract class Sensor extends Observable {
     private int lastReading;
     private int interval;
@@ -11,14 +13,21 @@ public abstract class Sensor extends Observable {
 
 
     public Sensor(int _interval, String _type){
+        System.out.println( _type + " registered to clock");
         interval = _interval;
         type = _type;
+        AlarmClock.theInstance().register(interval,new SensorAlarmListener(this));
+
     }
 
 
     public abstract int read();
 
     public void check(){
-            if(read() != lastReading);
+        int temp = read();
+        if (lastReading != temp) {
+            lastReading = temp;
+            notifyObservers(lastReading);
+        }
     }
 }

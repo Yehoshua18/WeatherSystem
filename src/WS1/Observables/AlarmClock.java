@@ -19,7 +19,7 @@ public class AlarmClock
     protected void tic(){
 
             for(AlarmClockRecord record: itsAlarmClockRecords){
-                if(record.getRemainingTime() - 4 <= 0){
+                if(record.getRemainingTime() - CLOCK_INTERVAL_MILLIS <= 0){
                     record.getItsAlarmListener().wakeup();
                     record.setRemainingTime(record.getInterval());
                 }

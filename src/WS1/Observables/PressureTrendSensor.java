@@ -4,47 +4,54 @@ import WS1.Observers.Observer;
 
 import java.util.ArrayList;
 
-public class PressureTrendSensor extends Observable implements Observer<Trend> {
+public class PressureTrendSensor extends Observable<Trend> implements Observer<Integer> {
     private int a;
     private int b;
     private int c;
     private Trend pressureState;
     private Trend lastState;
-
-//    public PressureTrendSensor(ArrayList<Observer> itsObservers) {
-//        super(itsObservers);
-//    }
+    public int counter=1;
 
 
+    public Trend calc(int newReading) {
+        //Trend res;
 
-    public Trend calc() {
-        Trend res;
+
+        lastState=pressureState;
+
+        a=b;
+        b=c;
+        c=newReading;
+
+
 
         if (a < b && b < c)
-            res = Trend.Rising;
+            pressureState = Trend.RISING;
 
         else if (a > b && b > c)
-            res = Trend.Declining;
+            pressureState = Trend.FALLING;
 
         else
-            res = Trend.Stable;
+            pressureState = Trend.STABLE;
 
-        return res;
+        return pressureState;
     }
 
 
     @Override
-    public void update(Trend newReading) {
-//        a = b;
-//        b = c;
-//        c = newReading;
+    public void update(Integer newReading) {
+        check(newReading);
     }
 
-    public void check() {
-        Trend temp = calc();
+
+    public void check(Integer newReading) {
+        Trend temp = calc(newReading);
         if (lastState != temp) {
             lastState = temp;
+        }
+        if(counter>2){
             notifyObservers(lastState);
         }
+            counter++;
     }
 }

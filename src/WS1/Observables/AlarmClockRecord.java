@@ -7,8 +7,8 @@ public class AlarmClockRecord {
     private int remainingTime;
     AlarmListener itsAlarmListener;
     public AlarmClockRecord(int interval,AlarmListener itsAlarmListener) {
-        this.interval = interval;
         this.itsAlarmListener=itsAlarmListener;
+        this.remainingTime=this.interval=interval;
     }
 
 

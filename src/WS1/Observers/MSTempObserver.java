@@ -5,7 +5,7 @@ public class MSTempObserver implements Observer<Integer> {
     private  MonitoringScreen itsMonitoringScreen;
 
     public MSTempObserver(MonitoringScreen monitoringScreen){
-
+        System.out.println("MSTempObserver was created");
         itsMonitoringScreen = monitoringScreen;
     }
 
