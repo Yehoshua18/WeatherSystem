@@ -14,6 +14,14 @@ public class MonitoringScreen {
 
 
     }
+    public MonitoringScreen(){//אולי צריך למחוק קת הבנאי למעלה
+         ws.theInstance().addTemperatureObserver(new MSTempObserver(this));
+         ws.theInstance().addPressureObserver(new MSPressObserver(this));
+  //       ws.theInstance().addTemperatureObserver(this::displayTemperature);
+    //     ws.theInstance().addPressureObserver(this::displayPressure);
+
+
+    }
     public void displayPressure(int data) {
         System.out.println("MonitoringScreen: pressure = "+data+" millibars");
 
@@ -21,7 +29,6 @@ public class MonitoringScreen {
     }
     public void displayTemperature(int data) {
         System.out.println("MonitoringScreen: temperature = "+data+" Celsius");
-
 
     }
 

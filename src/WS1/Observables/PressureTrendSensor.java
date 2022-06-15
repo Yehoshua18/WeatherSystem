@@ -12,6 +12,9 @@ public class PressureTrendSensor extends Observable<Trend> implements Observer<I
     private Trend lastState;
     public int counter=1;
 
+    public PressureTrendSensor(Sensor sensor) {
+        sensor.addObserver(this);
+    }
 
     public Trend calc(int newReading) {
         //Trend res;

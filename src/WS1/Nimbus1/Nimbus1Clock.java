@@ -1,11 +1,18 @@
 package WS1.Nimbus1;
 
 import WS1.Observables.AlarmClock;
+import WS1.Observables.ClockImt;
+import WS1.Observables.ClockListener;
 
-public class Nimbus1Clock extends AlarmClock // hksjadhfj
+import java.util.ArrayList;
+
+public class Nimbus1Clock extends ClockImt // hksjadhfj
 {
-    protected Nimbus1Clock()
+    public AlarmClock ac;
+    protected static ClockImt instance = new Nimbus1Clock(itsClockListener);
+    protected Nimbus1Clock(ArrayList<ClockListener> cl)
     {
+        super(cl);
         new Thread("polling Alarm Clock Records")
         {
             public void run()
@@ -14,19 +21,34 @@ public class Nimbus1Clock extends AlarmClock // hksjadhfj
                 for(int i=0;i<60;i++)
                 {
                     //System.out.println("Thread: " + getName() + " running");
-                    tic();
-                    try  { Thread.sleep(CLOCK_INTERVAL_MILLIS);}
+                    cl.get(i).tic();
+                    try  { Thread.sleep(ac.CLOCK_INTERVAL_MILLIS);}
                     catch (InterruptedException e)
                     { e.printStackTrace(); }
                 }
             }
         }.start();
     }
-
-    public static AlarmClock theInstance()
-    {
-        if(null==instance)
-            instance = new Nimbus1Clock();
-        return instance;
+    public void notifyClockListener(){
+        for (ClockListener cl:itsClockListener) {
+            cl.tic();
+        }
     }
+
+//    public static AlarmClock theInstance()
+//    {
+//        if(null==instance)
+//            instance = new Nimbus1Clock();
+//        return instance;
+//    }
+    public static ClockImt theInstance()
+    {
+        /*
+        if(null==instance)
+            instance = new Nimbus1Clock(itsClockListener);
+         */
+        return instance;
+   }
 }
+
+
