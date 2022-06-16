@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class AlarmClock implements ClockListener
 {
     public final int CLOCK_INTERVAL_MILLIS = 100;
-    protected static AlarmClock instance = null;
+    protected static AlarmClock instance = new AlarmClock();
     private ArrayList<AlarmClockRecord> itsAlarmClockRecords = new ArrayList();
 
     protected AlarmClock() {//,might be public
@@ -17,8 +17,6 @@ public class AlarmClock implements ClockListener
     }
     public static AlarmClock theInstance()
     {
-        if(null==instance)
-            instance = new AlarmClock();
         return instance;
     }
 
@@ -37,8 +35,8 @@ public class AlarmClock implements ClockListener
     public void register(int interval, AlarmListener pal) {
         itsAlarmClockRecords.add(new AlarmClockRecord(interval,pal));
     }
-    public long getTime(){
-
+    public AlarmClock getTime(){
+        return instance;
     }
     public void wakeUpEveryDay(AlarmListener alarmListener){
 

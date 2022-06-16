@@ -1,12 +1,14 @@
 package WS1.Observables;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class HiLoDataProxy implements HiLoData{
     PersistenceImp persistenceImp;
-    //private api.PersistentImt itsPI;
+    private PersistenceImp itsPI;
+    private HiLoDataImp itsImp;
     HiLoDataImp hiLoDataImp;
     String storageKey;
     String type;
@@ -21,10 +23,29 @@ public class HiLoDataProxy implements HiLoData{
         return change;
     }
 
+    @Override
+    public LocalDateTime getHighTime() {
+        return itsImp.getHighTime();
+    }
+
+    @Override
+    public double getHighValue() {
+        return itsImp.getHighValue();
+    }
+
+    @Override
+    public LocalDateTime getLowTime() {
+        return itsImp.getLowTime();
+    }
+
+    @Override
+    public double getLowValue() {
+        return itsImp.getLowValue();
+    }
 
 
     @Override
-    public void newDay(double intial, long time) {
+    public void newDay(double intial, LocalDateTime time) {
         store();
         hiLoDataImp.newDay(intial,time);
         calculateStorageKey(time);
@@ -33,10 +54,10 @@ public class HiLoDataProxy implements HiLoData{
     }
     private void store(){
         try{
-            persistenceImp.store(storageKey,this);
+            persistenceImp.store(storageKey, (Serializable) this);
         }
         catch (IOException e){
-            //log the error somehow
+            System.out.println("Error: " + e);
         }
     }
     private String calculateStorageKey(LocalDateTime d){

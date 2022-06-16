@@ -1,10 +1,12 @@
 package WS1.Observables;
 
+import java.time.LocalDateTime;
+
 public interface HiLoData {
-    void currentReading(int value);
-    long getHighTime();
+    boolean currentReading(double value, LocalDateTime time);
+    LocalDateTime getHighTime();
     double getHighValue();
-    long getLowTime();
+    LocalDateTime getLowTime();
     double getLowValue();
-    void newDay(double intial,long time);
+    void newDay(double intial, LocalDateTime time);
 }

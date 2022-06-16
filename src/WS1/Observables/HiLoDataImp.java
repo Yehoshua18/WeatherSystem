@@ -5,14 +5,14 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class HiLoDataImp implements HiLoData,java.io.Serializable {
-    private long highTime;
+    private LocalDateTime highTime;
     private double highValue;
-    private long lowTime;
+    private LocalDateTime lowTime;
     private double lowValue;
     PersistenceImp persistenceImp;
     private String type;
     transient private String storageKey;
-    transient private api.PersistentImp itsPI;
+    transient private PersistenceImp itsPI;
 
     public HiLoDataImp(StationToolkit st, String type, double init, LocalDateTime time) {
         try{
@@ -23,7 +23,7 @@ public class HiLoDataImp implements HiLoData,java.io.Serializable {
             highTime = t.getHighTime();
             currentReading(init,time);
         }
-        catch (RuntimeException re){
+        catch (RuntimeException | IOException | ClassNotFoundException re){
             highValue = lowValue = init;
             highTime = lowTime = time;
         }
@@ -34,12 +34,12 @@ public class HiLoDataImp implements HiLoData,java.io.Serializable {
         if(current>highValue){
             highValue = current;
             highTime = time;
-           // store();
+            store();
             return true;
         } else if (current<lowValue) {
             lowValue=current;
             lowTime = time;
-            //store();
+            store();
             return true;
 
         }
@@ -47,7 +47,7 @@ public class HiLoDataImp implements HiLoData,java.io.Serializable {
     }
 
     @Override
-    public long getHighTime() {
+    public LocalDateTime getHighTime() {
         return highTime;
     }
 
@@ -57,7 +57,7 @@ public class HiLoDataImp implements HiLoData,java.io.Serializable {
     }
 
     @Override
-    public long getLowTime() {
+    public LocalDateTime getLowTime() {
         return lowTime;
     }
 
@@ -71,8 +71,8 @@ public class HiLoDataImp implements HiLoData,java.io.Serializable {
         store();
         lowValue = highValue = intial;
         lowTime = highTime = time;
-       // storageKey = calculateStorageKey(time);
-       // store();
+        storageKey = calculateStorageKey(time);
+        store();
 
     }
     private void store(){
@@ -80,7 +80,7 @@ public class HiLoDataImp implements HiLoData,java.io.Serializable {
             itsPI.store(storageKey,this);
         }
         catch (IOException e){
-            //log the error somehow
+            System.out.println("Error: " + e);
         }
     }
     private String calculateStorageKey(LocalDateTime d){

@@ -12,8 +12,6 @@ import WS1.Observers.MonitoringScreen;
 
 public class MainClassWS2
 {
-
-    // TODO: initialize the weatherStation and the UI instances (log and screen)
     public static void main(String[] args) {
         WeatherMonitoringSystem wms = WeatherMonitoringSystem.theInstance();
         MonitoringScreen ms = new MonitoringScreen();
